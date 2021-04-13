@@ -114,12 +114,18 @@ namespace BikeRental
 
         private static void EditBikes()
         {
+
+
             //List<Bike> bikes;
             // Using DB within these brackets
             using (var dbContext = new BikeRentalDbContext())
             {
+                // access bike by the id. 
+                // show bike by the id
+                // update the bike by the id.
+                
                 var bikes = dbContext.Bikes.FirstOrDefault(bikes => bikes.BikeId == "R10");
-
+                
                 if (bikes != null)
                 {
                     // Make changes on entity
