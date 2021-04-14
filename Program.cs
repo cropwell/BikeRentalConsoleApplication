@@ -1,4 +1,5 @@
 ﻿using BikeRental.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -121,15 +122,39 @@ namespace BikeRental
         private static void EditBikes()
         {
 
+            // hämta ut alla cyklar
+            // visa upp dom
+            // välja den vi vill ändra på 
+            // ändra på något
+            // spara
+
 
             //List<Bike> bikes;
+
+            List<Bike> bikes;
             // Using DB within these brackets
             using (var dbContext = new BikeRentalDbContext())
             {
+                bikes = dbContext.Bikes.ToList();
+                Console.Clear();
+                foreach (var bke in bikes)
+                {
+                    Console.WriteLine(bke.BikeId);
+                }
+                /* Tried to let user chose a bike id to change to a new one but got stuck
+                 * 
+                Console.WriteLine("Write the ID of the bike you want to edit");
+                var bikeIdToEdit = Console.ReadLine();
+                var bikeToEdit = dbContext.Bikes.Find(bikeIdToEdit);
+                Console.WriteLine("Write the new ID");
+                var newBikeIdEdit = Console.ReadLine();
+                var newBikeId = dbContext.Bikes.Update(newBikeIdEdit);*/
+
                 // access bike by the id. 
                 // show bike by the id
                 // update the bike by the id.
-                
+
+
                 var bike = dbContext.Bikes.FirstOrDefault(b => b.BikeId == "R10");
                 
                 if (bike != null)
@@ -147,6 +172,7 @@ namespace BikeRental
                     dbContext.SaveChanges();
                 }
             }
+
             ReturnToMainMenu();    
         }
 
@@ -177,8 +203,8 @@ namespace BikeRental
             // Using DB within these brackets
             using (var dbContext = new BikeRentalDbContext())
             {
-            // Retrieving customers from DB and put into a list
-                customerInformation = dbContext.CustomerInformation.ToList();
+            // Retrieving customers and bookings from DB and put into a list
+                customerInformation = dbContext.CustomerInformation.Include(c => c.Bookings).ToList();
             }
             // Printing all customers
             Console.Clear();
@@ -231,21 +257,21 @@ namespace BikeRental
         }
 
 
-        /*// Declaring a list with spare parts
-        List<BikeSparePart> spareParts;
+            /*// Declaring a list with spare parts
+            List<BikeSparePart> spareParts;
             // Using DB within these brackets
             using (var dbContext = new BikeRentalDbContext())
             {
                 // Retrieving bikes from DB and put into a list
                 spareParts = dbContext.BikeSpareParts.ToList();
             }
-// Printing all bikes
-Console.Clear();
-foreach (var bikeSparePart in spareParts)
-{
-    Console.WriteLine(bikeSparePart.SpArticleNumber);
-}
-ReturnToMainMenu();
+            // Printing all bikes
+            Console.Clear();
+            foreach (var bikeSparePart in spareParts)
+            {
+                  Console.WriteLine(bikeSparePart.SpArticleNumber);
+            }
+            ReturnToMainMenu();
         */
     }
 }
