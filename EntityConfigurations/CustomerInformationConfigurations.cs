@@ -32,8 +32,8 @@ namespace BikeRental.EntityConfigurations
             // relationship
             builder
                 .HasMany(c => c.Bookings)
-                .WithOne(b => b.CustomerInformation)
-                .HasForeignKey(b => b.SocialSecuriyNumber);
+                .WithOne(b => b.CustomerInformation);
+              //  .HasForeignKey(b => b.SocialSecurityNumber);
                 
         }
     }

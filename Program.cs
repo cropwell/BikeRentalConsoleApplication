@@ -25,7 +25,7 @@ namespace BikeRental
             Console.WriteLine("4: Remove bikes");
             Console.WriteLine("5: View all Customers");
             Console.WriteLine("6: View bookings");
-            Console.WriteLine("7: View bookings");
+            Console.WriteLine("7: Add bookings");
             Console.WriteLine();
             var menuChoice = Console.ReadLine();
             switch (menuChoice)
@@ -47,8 +47,9 @@ namespace BikeRental
                     break;
                 case "6":
                     ShowBookings();
-                    break;
+                    break;                    
                 case "7":
+                    AddBookings();
                     break;
             }
         }
@@ -68,13 +69,18 @@ namespace BikeRental
             using (var dbContext = new BikeRentalDbContext())
             {
                 // Retrieving bikes from DB and put into a list
-                bikes = dbContext.Bikes.ToList();
+                bikes = dbContext.Bikes.ToList();                
             }
             // Printing all bikes
             Console.Clear();
             foreach (var bike in bikes)
             {
                 Console.WriteLine(bike.BikeId);
+                Console.WriteLine(bike.BikeBrand);
+                Console.WriteLine(bike.BikeModel);                
+                Console.WriteLine(bike.BikeStatus);
+                Console.WriteLine(bike.DateOfPurchase);
+                Console.WriteLine(bike.BikesBookings);
             }
             ReturnToMainMenu();
         }
@@ -124,16 +130,18 @@ namespace BikeRental
                 // show bike by the id
                 // update the bike by the id.
                 
-                var bikes = dbContext.Bikes.FirstOrDefault(bikes => bikes.BikeId == "R10");
+                var bike = dbContext.Bikes.FirstOrDefault(b => b.BikeId == "R10");
                 
-                if (bikes != null)
+                if (bike != null)
                 {
                     // Make changes on entity
-                    bikes.BikeBrand = "Monark";
-                    bikes.BikeModel = "Original";
-
+                    bike.BikeBrand = "Monark";
+                    bike.BikeModel = "Original";
+                    bike.BikeStatus = "Available";
+                    bike.DateOfPurchase = null;
+                    
                     // Update entity in DbSet
-                    dbContext.Bikes.Update(bikes);
+                    dbContext.Bikes.Update(bike);
 
                     // Save changes in database
                     dbContext.SaveChanges();

@@ -52,7 +52,7 @@ namespace BikeRental.EntityConfigurations
             builder
                 .HasOne(b => b.CustomerInformation)
                 .WithMany(c => c.Bookings)
-                .HasForeignKey(b => b.SocialSecuriyNumber);
+                .HasForeignKey(b => b.SocialSecurityNumber);
 
         }
     }

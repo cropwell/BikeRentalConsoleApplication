@@ -25,7 +25,7 @@ namespace BikeRental.Models
         public ICollection<BikesBooking> BikesBookings { get; set; }
         public ICollection<BikeSparePartsBooking> BikeSparePartsBookings { get; set; }
         public CustomerInformation CustomerInformation { get; set; }
-        public string SocialSecuriyNumber { get; set; }
+        public string SocialSecurityNumber { get; set; }
 
     }
 }
